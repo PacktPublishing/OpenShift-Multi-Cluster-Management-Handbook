@@ -10,4 +10,4 @@ spec:
     name: articles-api
     weight: 100
   port:
-    targetPort: 8080-tcp
+    targetPort: 8080

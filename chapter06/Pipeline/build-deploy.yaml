@@ -62,9 +62,9 @@ spec:
       workspace: shared-workspace
     runAfter:
     - build-image
-  - name: update-deployment
+  - name: update-image-version
     taskRef:
-      name: update-deployment
+      name: update-image-version
     params:
     - name: deployment
       value: $(params.deployment-name)

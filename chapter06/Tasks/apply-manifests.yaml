@@ -9,7 +9,7 @@ spec:
     - name: manifest_dir
       description: The directory in source that contains yaml manifests
       type: string
-      default: "k8s"
+      default: "./sample-go-app/articles-api/k8s"
   steps:
     - name: apply
       image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
@@ -18,5 +18,5 @@ spec:
       args:
         - |-
           echo Applying manifests in $(inputs.params.manifest_dir) directory
-          oc apply -f $(inputs.params.manifest_dir)
+          oc apply -k $(inputs.params.manifest_dir)
           echo -----------------------------------

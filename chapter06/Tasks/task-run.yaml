@@ -18,5 +18,4 @@ spec:
   workspaces: 
   - name: output 
     persistentVolumeClaim: 
-      claimName: workspace-source  
-      
+      claimName: source-pvc  

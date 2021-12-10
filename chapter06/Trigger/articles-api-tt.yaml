@@ -15,20 +15,20 @@ spec:
   - apiVersion: tekton.dev/v1beta1
     kind: PipelineRun
     metadata:
-      generateName: build-deploy-$(tt.params.git-repo-name)-
+      generateName: build-deploy-
     spec:
       serviceAccountName: pipeline
       pipelineRef:
         name: build-and-deploy
       params:
       - name: deployment-name
-        value: $(tt.params.git-repo-name)
+        value: articles-api
       - name: git-url
         value: $(tt.params.git-repo-url)
       - name: git-revision
         value: $(tt.params.git-revision)
       - name: IMAGE
-        value: image-registry.openshift-image-registry.svc:5000/pipelines-tutorial/$(tt.params.git-repo-name)
+        value: image-registry.openshift-image-registry.svc:5000/pipelines-sample/articles-api
       workspaces:
       - name: shared-workspace
         volumeClaimTemplate:

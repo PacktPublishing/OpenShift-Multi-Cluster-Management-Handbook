@@ -72,3 +72,11 @@ spec:
       value: $(params.IMAGE)
     runAfter:
     - apply-manifests
+  - name: check-app-health
+    taskRef:
+      name: check-app-health
+    params:
+    - name: deployment
+      value: $(params.deployment-name)
+    runAfter:
+    - update-image-version    

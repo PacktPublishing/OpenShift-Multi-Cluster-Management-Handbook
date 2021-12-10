@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: articles-api
+  name: articles-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: articles-api
+  template:
+    metadata:
+      labels:
+        app: articles-api
+    spec:
+      containers:
+        - image: quay.io/gfontana/articles-api:latest
+          imagePullPolicy: Always
+          name: articles-api
+          ports:
+            - containerPort: 8080
+              protocol: TCP

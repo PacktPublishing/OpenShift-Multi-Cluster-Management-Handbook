@@ -1,0 +1,15 @@
+apiVersion: tekton.dev/v1beta1 
+kind: TaskRun 
+metadata: 
+  name: run-apply-manifests 
+spec: 
+  taskRef: 
+    name: apply-manifests 
+  params: 
+  - name: manifest_dir 
+    value: "./sample-go-app/articles-api/k8s" 
+  workspaces: 
+  - name: source 
+    persistentVolumeClaim: 
+      claimName: source-pvc 
+      

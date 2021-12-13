@@ -9,7 +9,7 @@ spec:
   - name: deployment-name
     value: articles-api
   - name: git-url
-    value: https://github.com/giofontana/Openshift-Multi-Cluster-management.git
+    value: https://github.com/PacktPublishing/Openshift-Multi-Cluster-management.git
   - name: IMAGE
     value: image-registry.openshift-image-registry.svc:5000/pipelines-sample/articles-api
   workspaces:

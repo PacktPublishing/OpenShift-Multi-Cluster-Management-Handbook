@@ -1,0 +1,99 @@
+# Global settings 
+
+global 
+  maxconn 20000 
+  log /dev/log local0 info 
+  chroot /var/lib/haproxy 
+  pidfile /var/run/haproxy.pid 
+  user haproxy 
+  group haproxy 
+  daemon 
+
+  # turn on stats unix socket 
+  stats socket /var/lib/haproxy/stats 
+
+defaults 
+  mode http 
+  log global 
+  option httplog 
+  option dontlognull 
+  option forwardfor except 127.0.0.0/8 
+  option redispatch 
+  retries 3 
+  timeout http-request 10s 
+  timeout queue 1m 
+  timeout connect 10s 
+  timeout client 300s 
+  timeout server 300s 
+  timeout http-keep-alive 10s 
+  timeout check 10s 
+  maxconn 20000 
+
+# Enable haproxy status endpoint 
+
+listen stats 
+  bind :9000 
+  mode http 
+  stats enable 
+  stats uri / 
+
+# OpenShift API (port 6443) 
+
+frontend openshift-api-server 
+  bind *:6443  
+  default_backend openshift-api-server 
+  mode tcp 
+  option tcplog 
+
+backend openshift-api-server 
+  balance source 
+  mode tcp 
+
+# bootstrap line below can be removed after the cluster is deployed 
+  server bootstrap 192.168.1.90:6443 check 
+  server master1 192.168.1.91:6443 check 
+  server master2 192.168.1.92:6443 check 
+  server master3 192.168.1.93:6443 check 
+
+# machine-config-server API (port 22623) 
+frontend machine-config-server 
+  bind *:22623 
+  default_backend machine-config-server 
+  mode tcp 
+  option tcplog 
+
+backend machine-config-server 
+  balance source 
+  mode tcp 
+
+# bootstrap line below can be removed after the cluster is deployed 
+  server bootstrap 192.168.1.90:22623 check 
+  server master1 192.168.1.91:22623 check 
+  server master2 192.168.1.92:22623 check 
+  server master3 192.168.1.93:22623 check 
+
+# Applications HTTP (port 80) 
+frontend ingress-http 
+  bind *:80 
+  default_backend ingress-http 
+  mode tcp 
+  option tcplog 
+
+backend ingress-http 
+  balance source 
+  mode tcp 
+  server worker1 192.168.1.101:80 check # [1] 
+  server worker2 192.168.1.102:80 check # [1] 
+
+# Applications HTTPS (port 443) 
+frontend ingress-https 
+  bind *:443 
+  default_backend ingress-https 
+  mode tcp 
+  option tcplog 
+
+backend ingress-https 
+  balance source 
+  mode tcp 
+  server worker0 192.168.1.101:443 check # [1] 
+  server worker1 192,168.1.102:443 check # [1] 

@@ -1,0 +1,18 @@
+$TTL 1W @	IN	SOA	bastion.ocp.hybridcloud.com.root ( 	 
+
+2019070700 ; serial 			 
+3H		; refresh (3 hours) 			 
+30M		; retry (30 minutes) 			 
+2W		; expiry (2 weeks) 			 
+1W )		; minimum (1 week) 	 
+
+ 
+
+5.1.168.192.in-addr.arpa. IN PTR api.ocp.hybridcloud.com.;  
+5.1.168.192.in-addr.arpa. IN PTR api-int.ocp.hybridcloud.com.; 
+90.1.168.192.in-addr.arpa. IN PTR bootstrap.ocp.hybridcloud.com.; 
+91.1.168.192.in-addr.arpa. IN PTR master1.ocp.hybridcloud.com.; 
+92.1.168.192.in-addr.arpa. IN PTR master2.ocp.hybridcloud.com.; 
+93.1.168.192.in-addr.arpa. IN PTR master3.ocp.hybridcloud.com.; 
+101.1.168.192.in-addr.arpa. IN PTR worker1.ocp. hybridcloud.com.; 
+102.1.168.192.in-addr.arpa. IN PTR worker2.ocp. hybridcloud.com.; 

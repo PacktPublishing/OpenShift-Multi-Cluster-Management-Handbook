@@ -1,0 +1,22 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+commonLabels:
+  environment: dev
+
+namespace: clouds-api-dev
+
+resources:
+  - namespace.yaml
+  - ../../base
+
+patchesStrategicMerge:
+  - deployment-patch.yaml
+
+#patches:
+#  - patch: |-
+#      - op: replace
+#        path: "/metadata/namespace"
+#        value: "clouds-api-dev"    
+#    target:
+#      name: .*

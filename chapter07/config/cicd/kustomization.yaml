@@ -1,0 +1,8 @@
+namespace: cicd
+
+resources:
+- namespaces/cicd-environment.yaml
+- tasks/apply-manifest-file.yaml
+- tasks/check-route-health.yaml
+- tasks/golang-unit-test.yaml
+- pipeline/build-deploy-dev.yaml

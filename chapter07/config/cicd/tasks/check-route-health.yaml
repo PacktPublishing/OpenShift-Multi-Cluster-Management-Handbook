@@ -1,0 +1,48 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: check-app-health
+spec:
+  params:
+    - name: deployment
+      description: The name of the deployment patch the image
+      type: string  
+    - name: route
+      description: The name of the deployment to check
+      type: string
+      default: clouds-api
+    - name: subpath
+      description: API sub-path
+      type: string
+      default: "cloud"     
+  steps:
+    - name: apply
+      image: registry.redhat.io/openshift4/ose-cli:latest
+      workingDir: /workspace/source
+      command: ["/bin/bash", "-c"]
+      args:
+        - |-
+          echo "Waiting for application $(inputs.params.deployment) to be ready."
+
+          TIMEOUT=0 
+          pod_status=`oc get pods -l app=$(inputs.params.deployment) -o jsonpath='{.items[0].status.phase}'`
+          while [ "$pod_status" != "Running" ]; do
+            echo "Pod is not ready yet. Current pod status is $pod_status ..."
+            sleep 2
+            if [ $TIMEOUT -gt 30 ]; then #1 MINUTE TIMEOUT 
+              echo "Timeout reached... Check the status of the deployment."
+              exit 1
+            fi
+            TIMEOUT=$(($TIMEOUT+1))
+            pod_status=`oc get pods -l app=$(inputs.params.deployment) -o jsonpath='{.items[0].status.phase}'`
+          done
+
+          echo "Checking if application is available at the route endpoint"
+          url=`oc get route $(inputs.params.route) -o jsonpath='{.spec.host}'`
+          result=`curl -s "http://${url}/$(inputs.params.subpath)"` 
+
+          if [ ! -z "$result" ]; then
+            echo "Application is available at http://${url}/$(inputs.params.subpath)"
+          fi 
+
+          echo -----------------------------------

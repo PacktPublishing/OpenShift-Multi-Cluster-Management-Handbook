@@ -1,0 +1,21 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: apply-manifest-file
+spec:
+  workspaces:
+  - name: source
+  params:
+    - name: manifest
+      description: The manifest file to apply
+      type: string
+  steps:
+    - name: apply
+      image: registry.redhat.io/openshift4/ose-cli:latest
+      workingDir: /workspace/source
+      command: ["/bin/bash", "-c"]
+      args:
+        - |-
+          echo Applying manifest $(inputs.params.manifest)
+          oc apply -f $(inputs.params.manifest)
+          echo -----------------------------------

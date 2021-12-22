@@ -4,17 +4,13 @@ kind: Kustomization
 commonLabels:
   environment: qa
 
+namespace: clouds-api-qa
+
 resources:
   - namespace.yaml
   - ../../base
 
-patchesStrategicMerge:
-  - deployment-patch.yaml
-
-patches:
-  - patch: |-
-      - op: replace
-        path: "/metadata/namespace"
-        value: "clouds-api-qa"    
-    target:
-      name: .*
+images:
+- name: quay.io/gfontana/clouds-api
+  newName: image-registry.openshift-image-registry.svc:5000/cicd/clouds-api
+  newTag: qa

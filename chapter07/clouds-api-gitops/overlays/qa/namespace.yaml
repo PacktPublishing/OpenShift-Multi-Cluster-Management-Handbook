@@ -1,6 +1,6 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: clouds-api-prod
+  name: clouds-api-qa
   labels:
     argocd.argoproj.io/managed-by: openshift-gitops  

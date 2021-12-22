@@ -10,7 +10,7 @@ spec:
     - name: route
       description: The name of the deployment to check
       type: string
-      default: articles-api
+      default: clouds-api
     - name: subpath
       description: API sub-path
       type: string

@@ -1,7 +1,7 @@
 apiVersion: triggers.tekton.dev/v1beta1
 kind: Trigger
 metadata:
-  name: articles-api-trigger
+  name: clouds-api-trigger
 spec:
   serviceAccountName: pipeline
   interceptors:
@@ -15,9 +15,9 @@ spec:
         - name: "eventTypes"
           value: ["push"]
   bindings:
-    - ref: articles-api-tb
+    - ref: clouds-api-tb
   template:
-    ref: articles-api-tt
+    ref: clouds-api-tt
 ---
 apiVersion: v1
 kind: Secret

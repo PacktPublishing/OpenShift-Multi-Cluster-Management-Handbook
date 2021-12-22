@@ -9,7 +9,7 @@ spec:
     - name: manifest_dir
       description: The directory in source that contains yaml manifests
       type: string
-      default: "./sample-go-app/articles-api/k8s"
+      default: "./sample-go-app/clouds-api/k8s"
   steps:
     - name: apply
       image: registry.redhat.io/openshift4/ose-cli:latest

@@ -1,7 +1,7 @@
 apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerBinding
 metadata:
-  name: articles-api-tb
+  name: clouds-api-tb
 spec:
   params:
   - name: git-repo-url

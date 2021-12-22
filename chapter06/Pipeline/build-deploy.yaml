@@ -22,7 +22,7 @@ spec:
   - name: CONTEXT
     type: string
     description: Path to the application source code directory   
-    default: "./sample-go-app/articles-api/"
+    default: "./sample-go-app/clouds-api/"
   tasks:
   - name: fetch-repository
     taskRef:

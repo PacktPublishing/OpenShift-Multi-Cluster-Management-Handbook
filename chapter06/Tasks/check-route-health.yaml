@@ -14,7 +14,7 @@ spec:
     - name: subpath
       description: API sub-path
       type: string
-      default: "articles"     
+      default: "cloud"     
   steps:
     - name: apply
       image: registry.redhat.io/openshift4/ose-cli:latest

@@ -6,8 +6,6 @@ spec:
   pipelineRef:
     name: build-app
   params:
-  - name: deployment-name
-    value: clouds-api
   - name: git-url
     value: https://github.com/giofontana/Openshift-Multi-Cluster-management.git
   - name: git-revision

@@ -7,7 +7,7 @@ spec:
     name: build-app
   params:
   - name: git-url
-    value: https://github.com/PacktPublishing/Openshift-Multi-Cluster-management.git
+    value: https://github.com/giofontana/Openshift-Multi-Cluster-management.git
   - name: git-revision
     value: dev
   - name: IMAGE

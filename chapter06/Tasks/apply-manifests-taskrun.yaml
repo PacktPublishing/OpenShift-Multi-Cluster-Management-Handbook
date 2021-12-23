@@ -7,7 +7,7 @@ spec:
     name: apply-manifests 
   params: 
   - name: manifest_dir 
-    value: "./sample-go-app/articles-api/k8s" 
+    value: "./sample-go-app/clouds-api/k8s" 
   workspaces: 
   - name: source 
     persistentVolumeClaim: 

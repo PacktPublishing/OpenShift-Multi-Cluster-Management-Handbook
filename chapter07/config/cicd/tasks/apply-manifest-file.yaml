@@ -1,15 +1,14 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: apply-manifests
+  name: apply-manifest-file
 spec:
   workspaces:
   - name: source
   params:
-    - name: manifest_dir
-      description: The directory in source that contains yaml manifests
+    - name: manifest
+      description: The manifest file to apply
       type: string
-      default: "./sample-go-app/clouds-api/k8s"
   steps:
     - name: apply
       image: registry.redhat.io/openshift4/ose-cli:latest
@@ -17,6 +16,6 @@ spec:
       command: ["/bin/bash", "-c"]
       args:
         - |-
-          echo Applying manifests in $(inputs.params.manifest_dir) directory
-          oc apply -k $(inputs.params.manifest_dir)
+          echo Applying manifest $(inputs.params.manifest)
+          oc apply -f $(inputs.params.manifest)
           echo -----------------------------------

@@ -1,7 +1,7 @@
 apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
-  name: articles-api-tt
+  name: clouds-api-tt
 spec:
   params:
   - name: git-repo-url
@@ -22,13 +22,13 @@ spec:
         name: build-and-deploy
       params:
       - name: deployment-name
-        value: articles-api
+        value: clouds-api
       - name: git-url
         value: $(tt.params.git-repo-url)
       - name: git-revision
         value: $(tt.params.git-revision)
       - name: IMAGE
-        value: image-registry.openshift-image-registry.svc:5000/pipelines-sample/articles-api
+        value: image-registry.openshift-image-registry.svc:5000/pipelines-sample/clouds-api
       workspaces:
       - name: shared-workspace
         volumeClaimTemplate:

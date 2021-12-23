@@ -6,7 +6,7 @@ metadata:
 spec:
   project: clouds-api
   source:
-    repoURL: 'https://github.com/giofontana/Openshift-Multi-Cluster-management.git'
+    repoURL: 'https://github.com/PacktPublishing/Openshift-Multi-Cluster-management.git'
     path: chapter07/clouds-api-gitops/overlays/prod
     targetRevision: main
   destination:

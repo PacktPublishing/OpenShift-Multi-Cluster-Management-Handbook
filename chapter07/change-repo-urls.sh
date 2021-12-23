@@ -1,5 +1,5 @@
 #!/bin/bash
-clear
+
 echo "================================================"
 echo ""
 echo "Change the references to your forked Git repo"

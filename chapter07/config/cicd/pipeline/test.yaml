@@ -1,0 +1,54 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: test
+spec:
+  workspaces:
+  - name: shared-workspace
+  params:
+  - name: git-url
+    type: string
+    description: url of the git repo for the code of deployment
+    default: "https://github.com/giofontana/Openshift-Multi-Cluster-management.git"
+  - name: git-revision
+    type: string
+    description: revision to be used from repo of the code for deployment
+    default: "dev"  
+  tasks:
+  - name: fetch-repository
+    taskRef:
+      name: git-clone
+      kind: ClusterTask
+    workspaces:
+    - name: output
+      workspace: shared-workspace
+    params:
+    - name: url
+      value: $(params.git-url)
+    - name: subdirectory
+      value: ""
+    - name: deleteExisting
+      value: "true"
+    - name: revision
+      value: $(params.git-revision)  
+  - name: change-qa-image-version
+    taskRef:
+      name: git-cli
+      kind: ClusterTask
+    params:
+    - name: GIT_SCRIPT
+      value: |
+        pwd
+        ls .
+        sed -i 's/newTag.*/newTag: v3.0/' ./chapter07/clouds-api-gitops/overlays/qa/kustomization.yaml
+
+        git add ./chapter07/clouds-api-gitops/overlays/qa/kustomization.yaml
+        git commit -m 'Changed image version'
+        git push  
+    workspaces:
+    - name: source
+      workspace: shared-workspace       
+    - name: input
+      emptyDir: {}
+    runAfter:
+    - fetch-repository  

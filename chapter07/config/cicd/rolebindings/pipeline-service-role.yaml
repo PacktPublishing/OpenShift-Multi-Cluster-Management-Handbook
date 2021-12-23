@@ -5,46 +5,12 @@ metadata:
   name: pipelines-clusterrole
 rules:
 - apiGroups:
-  - ""
-  resources:
-  - namespaces
-  - services
-  verbs:
-  - patch
-  - get
-  - create
-- apiGroups:
-  - rbac.authorization.k8s.io
-  resources:
-  - clusterroles
-  - roles
-  verbs:
-  - bind
-  - patch
-  - get
-- apiGroups:
-  - rbac.authorization.k8s.io
-  resources:
-  - clusterrolebindings
-  - rolebindings
-  verbs:
-  - get
-  - create
-  - patch
-- apiGroups:
-  - apps
-  resources:
-  - deployments
-  verbs:
-  - get
-  - create
-  - patch
-- apiGroups:
   - argoproj.io
   resources:
+  - appprojects
   - applications
-  - argocds
   verbs:
+  - patch
   - get
   - create
-  - patch
+  

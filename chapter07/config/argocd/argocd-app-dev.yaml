@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: 'https://github.com/giofontana/Openshift-Multi-Cluster-management.git'
     path: chapter07/clouds-api-gitops/overlays/dev
-    targetRevision: main
+    targetRevision: dev
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: default

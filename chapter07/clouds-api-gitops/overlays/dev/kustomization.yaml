@@ -13,4 +13,4 @@ resources:
 images:
 - name: quay.io/gfontana/clouds-api
   newName: image-registry.openshift-image-registry.svc:5000/cicd/clouds-api
-  newTag: v3.0
+  newTag: v1.0

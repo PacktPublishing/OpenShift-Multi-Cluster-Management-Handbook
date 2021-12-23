@@ -1,21 +1,17 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  name: build-and-deploy-dev
+  name: build-app
 spec:
   workspaces:
   - name: shared-workspace
   params:
-  - name: deployment-name
-    type: string
-    description: name of the deployment to be patched
   - name: git-url
     type: string
     description: url of the git repo for the code of deployment
   - name: git-revision
     type: string
     description: revision to be used from repo of the code for deployment
-    default: "main"
   - name: IMAGE
     type: string
     description: image to be build from the code
@@ -23,14 +19,6 @@ spec:
     type: string
     description: Path to the application source code directory   
     default: "./sample-go-app/clouds-api/"
-  - name: argocd-project-manifest
-    type: string
-    description: path to the argocd app manifest
-    default: "./chapter07/config/argocd/argocd-project.yaml"       
-  - name: app-manifest
-    type: string
-    description: path to the argocd app manifest
-    default: "./chapter07/config/argocd/argocd-app-dev.yaml"    
   tasks:
   - name: fetch-repository
     taskRef:
@@ -75,33 +63,3 @@ spec:
       workspace: shared-workspace
     runAfter:
     - golang-unit-test
-  - name: create-argocd-project
-    taskRef:
-      name: apply-manifest-file
-    params:
-    - name: manifest
-      value: $(params.argocd-project-manifest)      
-    workspaces:
-    - name: source
-      workspace: shared-workspace
-    runAfter:
-    - build-image     
-  - name: deploy-app-with-argocd
-    taskRef:
-      name: apply-manifest-file
-    params:
-    - name: manifest
-      value: $(params.app-manifest)      
-    workspaces:
-    - name: source
-      workspace: shared-workspace
-    runAfter:
-    - create-argocd-project       
-  - name: check-app-health
-    taskRef:
-      name: check-app-health
-    params:
-    - name: deployment
-      value: $(params.deployment-name)
-    runAfter:
-    - deploy-app-with-argocd   

@@ -6,9 +6,11 @@ commonLabels:
 
 namespace: clouds-api-dev
 
+bases:
+  - ../../base
+
 resources:
   - namespace.yaml
-  - ../../base
 
 images:
 - name: quay.io/gfontana/clouds-api

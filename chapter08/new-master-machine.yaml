@@ -1,0 +1,43 @@
+apiVersion: machine.openshift.io/v1beta1
+kind: Machine
+metadata:
+  finalizers:
+  - machine.machine.openshift.io
+  labels:
+    machine.openshift.io/cluster-api-cluster: ocp-sgw5f
+    machine.openshift.io/cluster-api-machine-role: master
+    machine.openshift.io/cluster-api-machine-type: master
+    machine.openshift.io/region: ""
+    machine.openshift.io/zone: ""
+    manager: cluster-bootstrap
+    operation: Update
+  name: ocp-master-4
+  namespace: openshift-machine-api
+  selfLink: /apis/machine.openshift.io/v1beta1/namespaces/openshift-machine-api/machines/ocp-master-4
+spec:
+  metadata: {}
+  providerSpec:
+    value:
+      apiVersion: vsphereprovider.openshift.io/v1beta1
+      credentialsSecret:
+        name: vsphere-cloud-credentials
+      diskGiB: 120
+      kind: VSphereMachineProviderSpec
+      memoryMiB: 16384
+      metadata:
+        creationTimestamp: null
+      network:
+        devices:
+        - networkName: net-prod-01
+      numCPUs: 4
+      numCoresPerSocket: 2
+      snapshot: ""
+      template: ocp-sgw5f-rhcos
+      userDataSecret:
+        name: master-user-data
+      workspace:
+        datacenter: MYDC
+        datastore: DATASTORE01
+        folder: /MYDC/vm/Openshift_PROD
+        resourcePool: /MYDC/host/DS01/Resources
+        server: vcenter01.mydc.hybridcloud.com

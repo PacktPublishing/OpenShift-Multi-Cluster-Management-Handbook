@@ -1,0 +1,12 @@
+namespace: cicd
+
+resources:
+- namespaces/cicd-environment.yaml
+- rolebindings/pipeline-service-role.yaml
+- rolebindings/pipeline-cicd-service-rolebinding.yaml
+- rolebindings/pipeline-dev-service-rolebinding.yaml
+- rolebindings/registry-pull-rolebinding.yaml
+- tasks/apply-manifest-file.yaml
+- tasks/check-route-health.yaml
+- tasks/golang-unit-test.yaml
+- pipeline/build-app.yaml

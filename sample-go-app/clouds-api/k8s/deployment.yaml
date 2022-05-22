@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: clouds-api
+  name: clouds-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: clouds-api
+  template:
+    metadata:
+      labels:
+        app: clouds-api
+    spec:
+      containers:
+        - image: quay.io/gfontana/clouds-api:latest
+          imagePullPolicy: Always
+          name: clouds-api
+          ports:
+            - containerPort: 8080
+              protocol: TCP

@@ -1,0 +1,31 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: golang-unit-test
+spec:
+  workspaces:
+  - name: source
+  params:
+    - name: context
+      description: path to the directory to use as context.
+      default: "./sample-go-app/clouds-api"
+    - name: version
+      description: golang version to use for tests
+      default: "latest"      
+    - name: module-name
+      description: golang module-name to get dependencies
+      default: "clouds"        
+    - name: flags
+      description: flags to use for the test command
+      default: -race -cover -v  
+    - name: packages
+      description: "packages to test (default: .)"
+      default: "."           
+  steps:
+    - name: unit-test
+      image: docker.io/library/golang:$(params.version)
+      workingDir: /workspace/source
+      script: |
+        cd $(params.context)
+        go get $(params.module-name)
+        go test $(params.flags) $(params.packages)

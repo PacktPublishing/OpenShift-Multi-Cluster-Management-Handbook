@@ -1,0 +1,14 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: clouds-api
+  namespace: clouds-api  
+  labels:
+    app: clouds-api
+spec:
+  to:
+    kind: Service
+    name: clouds-api
+    weight: 100
+  port:
+    targetPort: 8080

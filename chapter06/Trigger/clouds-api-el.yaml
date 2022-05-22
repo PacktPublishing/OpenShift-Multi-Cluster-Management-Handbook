@@ -1,8 +1,8 @@
 apiVersion: triggers.tekton.dev/v1beta1
 kind: EventListener
 metadata:
-  name: articles-api-el
+  name: clouds-api-el
 spec:
   serviceAccountName: pipeline
   triggers:
-    - triggerRef: articles-api-trigger
+    - triggerRef: clouds-api-trigger

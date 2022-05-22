@@ -1,0 +1,23 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: build-deploy-api-pipelinerun
+spec:
+  pipelineRef:
+    name: build-and-deploy
+  params:
+  - name: deployment-name
+    value: clouds-api
+  - name: git-url
+    value: https://github.com/giofontana/Openshift-Multi-Cluster-management.git
+  - name: IMAGE
+    value: image-registry.openshift-image-registry.svc:5000/pipelines-sample/clouds-api
+  workspaces:
+  - name: shared-workspace
+    volumeClaimTemplate:
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 500Mi

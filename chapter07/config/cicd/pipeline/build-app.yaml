@@ -1,21 +1,17 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  name: build-and-deploy
+  name: build-app
 spec:
   workspaces:
   - name: shared-workspace
   params:
-  - name: deployment-name
-    type: string
-    description: name of the deployment to be patched
   - name: git-url
     type: string
     description: url of the git repo for the code of deployment
   - name: git-revision
     type: string
     description: revision to be used from repo of the code for deployment
-    default: "main"
   - name: IMAGE
     type: string
     description: image to be build from the code
@@ -40,6 +36,19 @@ spec:
       value: "true"
     - name: revision
       value: $(params.git-revision)
+  - name: golang-unit-test
+    taskRef:
+      name: golang-unit-test
+    params:
+    - name: context
+      value: $(params.CONTEXT)
+    - name: module-name
+      value: "clouds"
+    workspaces:
+    - name: source
+      workspace: shared-workspace      
+    runAfter:
+    - fetch-repository   
   - name: build-image
     taskRef:
       name: buildah
@@ -53,30 +62,4 @@ spec:
     - name: source
       workspace: shared-workspace
     runAfter:
-    - fetch-repository
-  - name: apply-manifests
-    taskRef:
-      name: apply-manifests
-    workspaces:
-    - name: source
-      workspace: shared-workspace
-    runAfter:
-    - build-image
-  - name: update-image-version
-    taskRef:
-      name: update-image-version
-    params:
-    - name: deployment
-      value: $(params.deployment-name)
-    - name: IMAGE
-      value: $(params.IMAGE)
-    runAfter:
-    - apply-manifests
-  - name: check-app-health
-    taskRef:
-      name: check-app-health
-    params:
-    - name: deployment
-      value: $(params.deployment-name)
-    runAfter:
-    - update-image-version    
+    - golang-unit-test

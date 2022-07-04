@@ -1,0 +1,11 @@
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: cloud-api-placement
+  namespace: clouds-api-dev
+  labels:
+    app: cloud-api
+spec:
+  clusterSelector:
+    matchLabels:
+      env: dev

@@ -1,0 +1,15 @@
+apiVersion: apps.open-cluster-management.io/v1
+kind: Subscription
+metadata:
+  name: cloud-api-subscription
+  namespace: clouds-api-dev
+  annotations:
+    apps.open-cluster-management.io/git-path: sample-go-app/clouds-api/k8s/
+  labels:
+    app: cloud-api
+spec:
+  channel: clouds-api-dev/cloud-api-github
+  placement:
+    placementRef:
+      name: cloud-api-placement
+      kind: PlacementRule

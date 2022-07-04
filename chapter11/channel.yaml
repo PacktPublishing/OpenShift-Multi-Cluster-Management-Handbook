@@ -1,0 +1,8 @@
+apiVersion: apps.open-cluster-management.io/v1
+kind: Channel
+metadata:
+  name: cloud-api-github
+  namespace: clouds-api-dev
+spec:
+  pathname: https://github.com/PacktPublishing/Openshift-Multi-Cluster-management.git
+  type: Git

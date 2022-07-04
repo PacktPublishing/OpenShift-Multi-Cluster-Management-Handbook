@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: clouds-api-dev
+
+resources:
+  - namespace.yaml
+  - application.yaml
+  - channel.yaml
+  - placementrule.yaml
+  - subscription.yaml  

@@ -1,0 +1,13 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: quarkus-quickstarts
+  labels:
+    app: quarkus-quickstarts
+spec:
+  to:
+    kind: Service
+    name: quarkus-quickstarts
+    weight: 100
+  port:
+    targetPort: 8080-tcp

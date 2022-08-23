@@ -1,8 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  name: quarkus-quickstarts
-  generateName: quarkus-quickstarts-
+  name: quarkus-build-and-deploy-pr
   namespace: chap14-review-cicd
 spec:
   params:
@@ -20,7 +19,7 @@ spec:
     - name: VERSION
       value: openjdk-17-ubi8
   pipelineRef:
-    name: quarkus-build
+    name: quarkus-build-and-deploy
   serviceAccountName: pipeline
   timeout: 1h0m0s
   workspaces:

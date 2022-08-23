@@ -19,7 +19,7 @@ spec:
       containers:
         - name: quarkus-quickstarts
           image: >-
-            image-registry.openshift-image-registry.svc:5000/chap14-review-cicd/quarkus-quickstarts
+            quay-registry-quay-openshift-operators.apps.ocp-21.sandbox735.opentlc.com/demo/quarkus-quickstarts
           ports:
             - containerPort: 8080
               protocol: TCP

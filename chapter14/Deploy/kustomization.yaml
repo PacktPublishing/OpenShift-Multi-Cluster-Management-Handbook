@@ -9,3 +9,5 @@ namespace: chap14-review-cicd
 resources:
   - Pipeline/quarkus-build-and-deploy-pi.yaml
   - PipelineRun/quarkus-build-and-deploy-pr.yaml
+  - Rolebindings/pipeline-service-role.yaml
+  - Rolebindings/pipeline-cicd-service-rolebinding.yaml

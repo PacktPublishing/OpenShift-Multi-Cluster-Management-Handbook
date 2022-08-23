@@ -62,7 +62,22 @@ spec:
     - name: deploy
       params:
         - name: SCRIPT
-          value: oc apply -f chapter14/Deploy/argo-app.yaml; while [[ $(oc get application quarkus-quickstarts -o jsonpath='{.status.health.status}') != "Healthy" ]]; do echo 'App not healthy'; sleep 5; done; echo 'App deployment finished and synced';
+          value: >-
+            set -euxo pipefail; 
+            oc apply -f chapter14/Deploy/argo-app.yaml; 
+            counter=0;
+            timeout=120;
+            while [[ $(oc get application quarkus-quickstarts -o jsonpath='{.status.health.status}' -n openshift-gitops) != "Healthy" ]];
+            do 
+              if [ $counter -gt $timeout ]; then
+                echo 'Timeout reached';
+                exit 1;
+              fi;
+              echo 'App not healthy yet, waiting more 5 seconds...';
+              sleep 5; 
+              counter=$((counter+1))
+            done;
+            echo 'App deployment finished and healthy';
       runAfter:
         - build
       taskRef:

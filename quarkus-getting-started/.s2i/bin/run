@@ -1,6 +1,0 @@
-#!/bin/bash
-echo "Before running application"
-
-microdnf remove maven-openjdk17 -y
-
-exec /usr/libexec/s2i/run

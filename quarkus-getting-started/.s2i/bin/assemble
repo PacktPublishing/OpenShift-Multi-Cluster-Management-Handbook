@@ -1,12 +1,12 @@
 #!/bin/bash
 echo "Before assembling"
+yum --setopt=tsflags=nodocs update -y
 
 /usr/local/s2i/assemble
 rc=$?
 
 if [ $rc -eq 0 ]; then
     echo "After successful assembling"
-    microdnf update maven-* -y 
 else
     echo "After failed assembling"
 fi

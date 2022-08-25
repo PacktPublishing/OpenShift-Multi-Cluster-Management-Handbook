@@ -14,9 +14,11 @@ spec:
       value: ''
     - name: IMAGE_NAME
       value: >-
-        quay-registry-quay-openshift-operators.apps.ocp-21.sandbox735.opentlc.com/demo/quarkus-quickstarts
+        quay-registry-quay-openshift-operators.apps.ocp.sandbox735.opentlc.com/demo/quarkus-quickstarts:v1
     - name: PATH_CONTEXT
       value: quarkus-getting-started
+    - name: K8S_MANIFESTS_PATH
+      value: "quarkus-getting-started/k8s/overlay/v1/"
     - name: VERSION
       value: openjdk-17-ubi8
   pipelineRef:

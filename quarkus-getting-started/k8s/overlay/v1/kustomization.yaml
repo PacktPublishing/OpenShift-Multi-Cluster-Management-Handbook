@@ -9,4 +9,4 @@ bases:
 images:
 - name: changeme
   newName: quay-registry-quay-openshift-operators.apps.ocp.sandbox735.opentlc.com/demo/quarkus-quickstarts
-  newTag: 1.0
+  newTag: "v1"

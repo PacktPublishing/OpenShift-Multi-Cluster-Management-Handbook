@@ -21,6 +21,8 @@ spec:
     - default: quarkus-getting-started
       name: PATH_CONTEXT
       type: string
+    - name: K8S_MANIFESTS_PATH
+      type: string      
     - default: openjdk-17-ubi8
       name: VERSION
       type: string
@@ -62,7 +64,7 @@ spec:
     - name: deploy
       params:
         - name: SCRIPT
-          value: oc apply -k quarkus-getting-started/k8s/
+          value: oc apply -k $(params.K8S_MANIFESTS_PATH)
       runAfter:
         - build
       taskRef:

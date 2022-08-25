@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "Before assembling"
-microdnf --setopt=install_weak_deps=0 --setopt=tsflags=nodocs update -y
+microdnf --setopt=install_weak_deps=0 --setopt=tsflags=nodocs,cachedir=/tmp update -y
 
 /usr/local/s2i/assemble
 rc=$?

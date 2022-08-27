@@ -22,13 +22,13 @@ read registry_path
 echo ""
 echo "** Changing Image Registry path:"
 
-sed -i "s/image-path-changeme/$registry_path/" ./Build/PipelineRun/quarkus-build-pr.yaml
-sed -i "s/image-path-changeme/$registry_path/" ./Deploy/PipelineRun/quarkus-build-and-deploy-pr.yaml
-sed -i "s/image-path-changeme/$registry_path/" ./DevSecOps/PipelineRun/quarkus-devsecops-v1-pr.yaml
-sed -i "s/image-path-changeme/$registry_path/" ./DevSecOps/PipelineRun/quarkus-devsecops-v2-pr.yaml
-sed -i "s/image-path-changeme/$registry_path/" ./Multicluster-Deployment/PipelineRun/quarkus-multicluster-pr.yaml
-sed -i "s/image-path-changeme/$registry_path/" ../quarkus-getting-started/k8s/overlay/v1/kustomization.yaml
-sed -i "s/image-path-changeme/$registry_path/" ../quarkus-getting-started/k8s/overlay/v1/kustomization.yaml
+sed -i "s~image-path-changeme~$registry_path~" ./Build/PipelineRun/quarkus-build-pr.yaml
+sed -i "s~image-path-changeme~$registry_path~" ./Deploy/PipelineRun/quarkus-build-and-deploy-pr.yaml
+sed -i "s~image-path-changeme~$registry_path~" ./DevSecOps/PipelineRun/quarkus-devsecops-v1-pr.yaml
+sed -i "s~image-path-changeme~$registry_path~" ./DevSecOps/PipelineRun/quarkus-devsecops-v2-pr.yaml
+sed -i "s~image-path-changeme~$registry_path~" ./Multicluster-Deployment/PipelineRun/quarkus-multicluster-pr.yaml
+sed -i "s~image-path-changeme~$registry_path~" ../quarkus-getting-started/k8s/overlay/v1/kustomization.yaml
+sed -i "s~image-path-changeme~$registry_path~" ../quarkus-getting-started/k8s/overlay/v1/kustomization.yaml
 
 echo ""
 echo "** Manifest files changed. Pushing changes to GitHub (please inform your GitHub user and password if asked)."

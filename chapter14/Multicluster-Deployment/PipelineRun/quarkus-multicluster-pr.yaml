@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  name: quarkus-build-and-deploy-pr
+  name: quarkus-devsecops-v1-pr
   namespace: chap14-review-cicd
 spec:
   params:
@@ -18,8 +18,10 @@ spec:
       value: quarkus-getting-started
     - name: VERSION
       value: openjdk-17-ubi8
+    - name: ARGO_APP_PATH
+      value: "chapter14/Multicluster-Deployment/Argocd/applicationset.yaml"
   pipelineRef:
-    name: quarkus-build-and-deploy
+    name: quarkus-devsecops-v1
   serviceAccountName: pipeline
   timeout: 1h0m0s
   workspaces:

@@ -13,7 +13,7 @@ spec:
       value: ''
     - name: IMAGE_NAME
       value: >-
-        quay-registry-quay-openshift-operators.apps.ocp.sandbox735.opentlc.com/demo/quarkus-quickstarts:v2
+        image-path-changeme:v2
     - name: PATH_CONTEXT
       value: quarkus-getting-started
     - name: VERSION

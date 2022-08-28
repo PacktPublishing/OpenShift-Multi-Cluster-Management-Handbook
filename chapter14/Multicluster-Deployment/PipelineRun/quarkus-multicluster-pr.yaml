@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  name: quarkus-devsecops-v1-pr
+  generateName: quarkus-devsecops-v1-pr
   namespace: chap14-review-cicd
 spec:
   params:

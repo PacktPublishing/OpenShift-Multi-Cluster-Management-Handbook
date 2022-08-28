@@ -8,5 +8,5 @@ bases:
 
 images:
 - name: changeme
-  newName: image-path-changeme
+  newName: quay-registry-quay-openshift-operators.apps.ocp-22.sandbox735.opentlc.com/demo/quarkus-quickstart
   newTag: "v2"

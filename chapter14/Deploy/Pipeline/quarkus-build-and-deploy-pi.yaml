@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  name: quarkus-build
+  name: quarkus-build-and-deploy
   namespace: chap14-review-cicd
 spec:
   params:
@@ -21,8 +21,6 @@ spec:
     - default: quarkus-getting-started
       name: PATH_CONTEXT
       type: string
-    - name: K8S_MANIFESTS_PATH
-      type: string      
     - default: openjdk-17-ubi8
       name: VERSION
       type: string
@@ -64,7 +62,22 @@ spec:
     - name: deploy
       params:
         - name: SCRIPT
-          value: oc apply -k $(params.K8S_MANIFESTS_PATH)
+          value: >-
+            set -euxo pipefail; 
+            oc apply -f chapter14/Deploy/argo-app.yaml; 
+            counter=0;
+            timeout=120;
+            while [[ $(oc get application quarkus-quickstarts -o jsonpath='{.status.health.status}' -n openshift-gitops) != "Healthy" ]];
+            do 
+              if [ $counter -gt $timeout ]; then
+                echo 'Timeout reached! Inspect the application on OpenShift to check its status...';
+                exit 1;
+              fi;
+              echo 'App not healthy yet, waiting more 5 seconds...';
+              sleep 5; 
+              counter=$((counter+1))
+            done;
+            echo 'App deployment finished and healthy';
       runAfter:
         - build
       taskRef:

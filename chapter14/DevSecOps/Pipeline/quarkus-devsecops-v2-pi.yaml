@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  name: quarkus-build
+  name: quarkus-devsecops-v2
   namespace: chap14-review-cicd
 spec:
   params:
@@ -21,10 +21,13 @@ spec:
     - default: quarkus-getting-started
       name: PATH_CONTEXT
       type: string
-    - name: K8S_MANIFESTS_PATH
-      type: string      
-    - default: openjdk-17-ubi8
-      name: VERSION
+    - name: acs_central_endpoint
+      type: string
+      default: "acs-secret"
+    - name: acs_api_token
+      type: string
+      default: "acs-secret"
+    - name: ARGO_APP_PATH
       type: string
   tasks:
     - name: fetch-repository
@@ -42,31 +45,61 @@ spec:
         name: git-clone
       workspaces:
         - name: output
-          workspace: workspace
+          workspace: workspace  
     - name: build
       params:
         - name: IMAGE
           value: $(params.IMAGE_NAME)
-        - name: TLSVERIFY
-          value: 'false'
-        - name: PATH_CONTEXT
+        - name: CONTEXT
           value: $(params.PATH_CONTEXT)
-        - name: VERSION
-          value: $(params.VERSION)
+        - name: DOCKERFILE
+          value: src/main/docker/Dockerfile.multistage
+        - name: TLSVERIFY
+          value: 'false'          
       runAfter:
         - fetch-repository
       taskRef:
         kind: ClusterTask
-        name: s2i-java
+        name: buildah
       workspaces:
         - name: source
           workspace: workspace
+    - name: security-check
+      params:
+      - name: rox_central_endpoint
+        value: $(params.acs_central_endpoint)
+      - name: rox_api_token
+        value: $(params.acs_api_token)
+      - name: image
+        value: $(params.IMAGE_NAME)
+      - name: insecure-skip-tls-verify
+        value: "true" 
+      taskRef:
+        kind: Task
+        name: stackrox-image-check
+      runAfter:
+      - build             
     - name: deploy
       params:
         - name: SCRIPT
-          value: oc apply -k $(params.K8S_MANIFESTS_PATH)
+          value: >-
+            set -euxo pipefail; 
+            oc apply -f $(params.ARGO_APP_PATH); 
+            counter=0;
+            timeout=120;
+            while [[ $(oc get application quarkus-quickstarts -o jsonpath='{.status.health.status}' -n openshift-gitops) != "Healthy" ]];
+            do 
+              if [ $counter -gt $timeout ]; then
+                echo 'Timeout reached';
+                exit 1;
+              fi;
+              echo 'App not healthy yet, waiting more 5 seconds...';
+              sleep 5; 
+              counter=$((counter+1))
+            done;
+            echo 'App deployment finished and healthy';
       runAfter:
-        - build
+        - security-check
       taskRef:
         kind: ClusterTask
         name: openshift-client

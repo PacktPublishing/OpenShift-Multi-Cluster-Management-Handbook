@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  generateName: quarkus-quickstarts-
+  generateName: quarkus-devsecops-v1-pr
   namespace: chap14-review-cicd
 spec:
   params:
@@ -16,12 +16,12 @@ spec:
         quay-registry-quay-openshift-operators.apps.ocp-22.sandbox735.opentlc.com/demo/quarkus-quickstart:v1
     - name: PATH_CONTEXT
       value: quarkus-getting-started
-    - name: K8S_MANIFESTS_PATH
-      value: "quarkus-getting-started/k8s/overlay/v1/"
     - name: VERSION
       value: openjdk-17-ubi8
+    - name: ARGO_APP_PATH
+      value: "chapter14/Multicluster-Deployment/applicationset.yaml"
   pipelineRef:
-    name: quarkus-build
+    name: quarkus-devsecops-v1
   serviceAccountName: pipeline
   timeout: 1h0m0s
   workspaces:

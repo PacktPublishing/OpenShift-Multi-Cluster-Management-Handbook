@@ -70,7 +70,7 @@ spec:
             while [[ $(oc get application quarkus-quickstarts -o jsonpath='{.status.health.status}' -n openshift-gitops) != "Healthy" ]];
             do 
               if [ $counter -gt $timeout ]; then
-                echo 'Timeout reached';
+                echo 'Timeout reached! Inspect the application on OpenShift to check its status...';
                 exit 1;
               fi;
               echo 'App not healthy yet, waiting more 5 seconds...';

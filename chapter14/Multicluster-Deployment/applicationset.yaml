@@ -19,7 +19,7 @@ spec:
     spec:
       project: default
       source:
-        repoURL: https://github.com/giofontana/Openshift-Multi-Cluster-management.git
+        repoURL: https://github.com/PacktPublishing/Openshift-Multi-Cluster-management.git
         targetRevision: main
         path: quarkus-getting-started/k8s/overlay/v2/
       destination:

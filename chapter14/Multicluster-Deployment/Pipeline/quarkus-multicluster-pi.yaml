@@ -8,7 +8,7 @@ spec:
     - default: quarkus-quickstarts
       name: APP_NAME
       type: string
-    - default: 'https://github.com/giofontana/Openshift-Multi-Cluster-management.git'
+    - default: 'https://github.com/PacktPublishing/Openshift-Multi-Cluster-management.git'
       name: GIT_REPO
       type: string
     - default: ''

@@ -1,7 +1,7 @@
 ;[1] Begin Common Header Definition 
 $TTL 86400 
 @ IN SOA bastion.ocp.hybridcloud.com. root.ocp.hybridcloud.com. ( 
-202201010001 ;Serial 
+3 ;Serial 
 21600 ;Refresh 
 3600 ;Retry 
 604800 ;Expire 
@@ -11,7 +11,7 @@ $TTL 86400
 
 
 ;Name Server Information [2] 
-IN NS bastion.ocp.hybridcloud.com.  
+   IN     NS     bastion.ocp.hybridcloud.com.
 
 ;IP address of Name Server [3] 
 bastion IN A 192.168.1.200 

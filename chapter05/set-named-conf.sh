@@ -15,7 +15,7 @@ allow-update { none; };
 
 zone "1.168.192.in-addr.arpa" IN {
 type master;
-file "/var/named/ /var/named/1.168.192.in-addr.arpa";
+file "/var/named/1.168.192.in-addr.arpa";
 allow-update { none; };
 };
 EOF

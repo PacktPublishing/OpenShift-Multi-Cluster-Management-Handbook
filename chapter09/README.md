@@ -1,4 +1,4 @@
-# Chapter 6 - OpenShift Pipelines - Tekton
+# Chapter 9 - OpenShift Pipelines - Tekton
 
 List of commands to copy and paste:
 

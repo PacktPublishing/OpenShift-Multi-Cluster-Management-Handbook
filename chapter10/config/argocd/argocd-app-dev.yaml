@@ -7,7 +7,7 @@ spec:
   project: clouds-api
   source:
     repoURL: 'https://github.com/PacktPublishing/Openshift-Multi-Cluster-management.git'
-    path: chapter07/clouds-api-gitops/overlays/dev
+    path: chapter10/clouds-api-gitops/overlays/dev
     targetRevision: dev
   destination:
     server: 'https://kubernetes.default.svc'

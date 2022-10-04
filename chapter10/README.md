@@ -1,4 +1,4 @@
-# Chapter 7 - OpenShift GitOps - ArgoCD
+# Chapter 10 - OpenShift GitOps - ArgoCD
 
 List of commands to copy and paste:
 

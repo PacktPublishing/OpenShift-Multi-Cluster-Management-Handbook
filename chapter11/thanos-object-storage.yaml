@@ -1,0 +1,15 @@
+apiVersion: v1
+ kind: Secret
+ metadata:
+   name: thanos-object-storage
+   namespace: open-cluster-management-observability
+ type: Opaque
+ stringData:
+   thanos.yaml: |
+     type: AZURE
+     config:
+       storage_account: $STORAGEACCOUNT
+       storage_account_key: $STORAGEKEY
+       container: $CONTAINERBLOB
+       endpoint: blob.core.windows.net
+       max_retries: 0

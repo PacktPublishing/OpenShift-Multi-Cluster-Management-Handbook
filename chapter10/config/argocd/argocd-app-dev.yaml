@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: clouds-app-dev
+  namespace: openshift-gitops
+spec:
+  project: clouds-api
+  source:
+    repoURL: 'https://github.com/PacktPublishing/Openshift-Multi-Cluster-management.git'
+    path: chapter10/clouds-api-gitops/overlays/dev
+    targetRevision: dev
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      selfHeal: true

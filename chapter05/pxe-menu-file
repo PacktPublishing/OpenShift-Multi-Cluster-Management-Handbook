@@ -1,0 +1,20 @@
+UI vesamenu.c32 
+MENU COLOR sel 4 #ffffff std 
+MENU COLOR title 0 #ffffff 
+TIMEOUT 120 
+PROMPT 0 
+
+MENU TITLE OPENSHIFT 4.X AGNOSTIC PXE MENU 
+
+LABEL BOOTSTRAP NODE 
+  KERNEL networkboot/coreOS/rhcos-live-kernel-x86_64 
+  APPEND initrd=networkboot/coreOS/rhcos-live-initramfs.x86_64.img,networkboot/coreOS/rhcos-live-rootfs.x86_64.img coreos.inst.install_dev=/dev/sda coreos.inst.ignition_url=http://192.168.1.200:81/ignition/bootstrap.ign
+
+LABEL MASTER NODE 
+  KERNEL networkboot/coreOS/rhcos-live-kernel-x86_64 
+  APPEND initrd=networkboot/coreOS/rhcos-live-initramfs.x86_64.img,networkboot/coreOS/rhcos-live-rootfs.x86_64.img coreos.inst.install_dev=/dev/sda coreos.inst.ignition_url=http://192.168.1.200:81/ignition/master.ign
+
+LABEL  WORKER NODE   
+  KERNEL networkboot/coreOS/rhcos-live-kernel-x86_64 
+  APPEND initrd=networkboot/coreOS/rhcos-live-initramfs.x86_64.img,networkboot/coreOS/rhcos-live-rootfs.x86_64.img coreos.inst.install_dev=/dev/sda coreos.inst.ignition_url=http://192.168.1.200:81/ignition/worker.ign
+  

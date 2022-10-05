@@ -96,4 +96,5 @@ backend ingress-https
   balance source 
   mode tcp 
   server worker0 192.168.1.101:443 check # [1] 
-  server worker1 192,168.1.102:443 check # [1] 
+  server worker1 192.168.1.102:443 check # [1] 
+  

@@ -1,0 +1,90 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: quarkus-build-and-deploy
+  namespace: chap14-review-cicd
+spec:
+  params:
+    - default: quarkus-quickstarts
+      name: APP_NAME
+      type: string
+    - default: 'https://github.com/PacktPublishing/Openshift-Multi-Cluster-management.git'
+      name: GIT_REPO
+      type: string
+    - default: ''
+      name: GIT_REVISION
+      type: string
+    - default: >-
+        image-registry.openshift-image-registry.svc:5000/chap14-review-cicd/quarkus-quickstarts
+      name: IMAGE_NAME
+      type: string
+    - default: quarkus-getting-started
+      name: PATH_CONTEXT
+      type: string
+    - default: openjdk-17-ubi8
+      name: VERSION
+      type: string
+  tasks:
+    - name: fetch-repository
+      params:
+        - name: url
+          value: $(params.GIT_REPO)
+        - name: revision
+          value: $(params.GIT_REVISION)
+        - name: subdirectory
+          value: ''
+        - name: deleteExisting
+          value: 'true'
+      taskRef:
+        kind: ClusterTask
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: workspace
+    - name: build
+      params:
+        - name: IMAGE
+          value: $(params.IMAGE_NAME)
+        - name: TLSVERIFY
+          value: 'false'
+        - name: PATH_CONTEXT
+          value: $(params.PATH_CONTEXT)
+        - name: VERSION
+          value: $(params.VERSION)
+      runAfter:
+        - fetch-repository
+      taskRef:
+        kind: ClusterTask
+        name: s2i-java
+      workspaces:
+        - name: source
+          workspace: workspace
+    - name: deploy
+      params:
+        - name: SCRIPT
+          value: >-
+            set -euxo pipefail; 
+            oc apply -f chapter14/Deploy/argo-app.yaml; 
+            counter=0;
+            timeout=120;
+            while [[ $(oc get application quarkus-quickstarts -o jsonpath='{.status.health.status}' -n openshift-gitops) != "Healthy" ]];
+            do 
+              if [ $counter -gt $timeout ]; then
+                echo 'Timeout reached! Inspect the application on OpenShift to check its status...';
+                exit 1;
+              fi;
+              echo 'App not healthy yet, waiting more 5 seconds...';
+              sleep 5; 
+              counter=$((counter+1))
+            done;
+            echo 'App deployment finished and healthy';
+      runAfter:
+        - build
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+      workspaces:
+        - name: manifest-dir
+          workspace: workspace        
+  workspaces:
+    - name: workspace

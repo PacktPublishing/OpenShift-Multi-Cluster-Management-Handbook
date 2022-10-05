@@ -1,0 +1,37 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: quarkus-devsecops-v1-pr
+  namespace: chap14-review-cicd
+spec:
+  params:
+    - name: APP_NAME
+      value: quarkus-quickstarts
+    - name: GIT_REPO
+      value: 'https://github.com/PacktPublishing/Openshift-Multi-Cluster-management.git'
+    - name: GIT_REVISION
+      value: ''
+    - name: IMAGE_NAME
+      value: >-
+        image-path-changeme:v2
+    - name: PATH_CONTEXT
+      value: quarkus-getting-started
+    - name: VERSION
+      value: openjdk-17-ubi8
+    - name: ARGO_APP_PATH
+      value: "chapter14/Multicluster-Deployment/applicationset.yaml"
+  pipelineRef:
+    name: quarkus-devsecops-v1
+  serviceAccountName: pipeline
+  timeout: 1h0m0s
+  workspaces:
+    - name: workspace
+      volumeClaimTemplate:
+        metadata:
+          creationTimestamp: null
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Gi

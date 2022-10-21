@@ -1,4 +1,4 @@
-# OpenShift-Multi-Cluster-Management-Handbook
+# OpenShift Multi-Cluster Management Handbook
 
 <a href="https://www.packtpub.com/product/openshift-multi-cluster-management-handbook/9781803235288"><img src="https://static.packt-cdn.com/products/9781803235288/cover/smaller" alt="OpenShift Multi-Cluster Management Handbook" height="256px" align="right"></a>
 

@@ -61,3 +61,8 @@ At Red Hat, Giovanni has been recognized with important awards such as Red Hat P
 
 **Rafael Pecora**
 started his first journey with technology at the age of 15 and since then, he has been dedicating himself to technology. He has more than 23 years dedicated to IT, a profession that is always evolving and shaping itself on cutting-edge innovation. Passionate about IT, he has focused his entire career on IT infrastructure, from traditional data centers to current cloud technologies. Currently, he develops his professional activity as a cloud solution architect in container technology and public clouds, with the aim of bringing his knowledge and improvement to clients that work in the financial, health and insurance, mid-market, and public sector, and helping them adopt hybrid cloud infrastructure with better resiliency for their customers. At Red Hat, Rafael has achieved more than 40 projects as an OpenShift consultant, acting on many industry projects, and has been recognized by customers and also recognized with Service Star and Champions awards.
+
+### Download a free PDF
+
+ <i>If you have already purchased a print or Kindle version of this book, you can get a DRM-free PDF version at no cost.<br>Simply click on the link to claim your free PDF.</i>
+<p align="center"> <a href="https://packt.link/free-ebook/9781803235288">https://packt.link/free-ebook/9781803235288 </a> </p>

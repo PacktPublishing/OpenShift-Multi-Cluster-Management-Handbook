@@ -56,7 +56,6 @@ tkn pipelinerun logs build-deploy-api-pipelinerun -f
 
 ```
 oc apply -f https://raw.githubusercontent.com/PacktPublishing/Openshift-Multi-Cluster-management/main/chapter06/Trigger/clouds-api-tb.yaml
-oc apply -f https://raw.githubusercontent.com/PacktPublishing/Openshift-Multi-Cluster-management/main/chapter06/Trigger/clouds-api-tb.yaml
 oc apply -f https://raw.githubusercontent.com/PacktPublishing/Openshift-Multi-Cluster-management/main/chapter06/Trigger/clouds-api-tt.yaml
 oc apply -f https://raw.githubusercontent.com/PacktPublishing/Openshift-Multi-Cluster-management/main/chapter06/Trigger/clouds-api-trigger.yaml
 oc apply -f https://raw.githubusercontent.com/PacktPublishing/Openshift-Multi-Cluster-management/main/chapter06/Trigger/clouds-api-el.yaml
